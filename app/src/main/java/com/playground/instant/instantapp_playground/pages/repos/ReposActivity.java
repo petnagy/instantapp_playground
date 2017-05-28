@@ -2,6 +2,7 @@ package com.playground.instant.instantapp_playground.pages.repos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +58,7 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
         activityComponent.inject(this);
 
         Intent intent = getIntent();
-        String userName = getUserName(intent);
+        String userName = handleIntent(intent);
 
         view.onCreate(this);
         presenter.showView(view);
@@ -68,6 +69,21 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
             handleNetworkCall(userName);
         }
     }
+
+    private String handleIntent(Intent intent) {
+        String appLinkAction = intent.getAction();
+        Uri appLinkData = intent.getData();
+        String userName = null;
+        Log.d("Applink", appLinkAction);
+        Log.d("Applink", appLinkData.toString());
+        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
+            userName = appLinkData.getQueryParameter("user");
+        } else {
+            userName = getUserName(intent);
+        }
+        return userName;
+    }
+
 
     @Override
     public void onCardClick(GitHubRepo repo) {
