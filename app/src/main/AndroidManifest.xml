@@ -41,7 +41,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".pages.details.RepoDetailsActivity" />
+        <activity android:name=".pages.details.RepoDetailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="applink-example.herokuapp.com"
+                    android:pathPattern="/githubproject" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

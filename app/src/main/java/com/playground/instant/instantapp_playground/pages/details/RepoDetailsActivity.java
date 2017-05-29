@@ -2,13 +2,16 @@ package com.playground.instant.instantapp_playground.pages.details;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.playground.instant.instantapp_playground.ProjectApplication;
 import com.playground.instant.instantapp_playground.R;
 import com.playground.instant.instantapp_playground.data.GitCommit;
+import com.playground.instant.instantapp_playground.data.GitHubOwner;
 import com.playground.instant.instantapp_playground.data.GitHubRepo;
 import com.playground.instant.instantapp_playground.injection.components.ActivityComponent;
 import com.playground.instant.instantapp_playground.injection.components.DaggerActivityComponent;
@@ -53,16 +56,35 @@ public class RepoDetailsActivity extends AppCompatActivity {
                 .build();
         activityComponent.inject(this);
 
-        GitHubRepo repo = getIntent().getParcelableExtra(GITHUB_REPO);
-        if (repo == null) {
-            //TODO error message
-        }
+        GitHubRepo repo = handleIntent(getIntent());
 
         view.onCreate(this);
         presenter.showView(view);
         presenter.showRepoData(repo);
 
         handleNetworkCall(repo);
+    }
+
+
+    private GitHubRepo handleIntent(Intent intent) {
+        String appLinkAction = intent.getAction();
+        Uri appLinkData = intent.getData();
+        GitHubRepo repo;
+        Log.d("Applink", appLinkAction);
+        Log.d("Applink", appLinkData.toString());
+        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
+            repo = new GitHubRepo();
+            repo.setName(appLinkData.getQueryParameter("repo"));
+            GitHubOwner owner = new GitHubOwner();
+            owner.setLogin(appLinkData.getQueryParameter("user"));
+            repo.setOwner(owner);
+        } else {
+            repo = getIntent().getParcelableExtra(GITHUB_REPO);
+            if (repo == null) {
+                //TODO error message
+            }
+        }
+        return repo;
     }
 
     private void handleNetworkCall(GitHubRepo repo) {

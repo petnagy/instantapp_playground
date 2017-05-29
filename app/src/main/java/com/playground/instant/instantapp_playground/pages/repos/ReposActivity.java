@@ -73,7 +73,7 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
     private String handleIntent(Intent intent) {
         String appLinkAction = intent.getAction();
         Uri appLinkData = intent.getData();
-        String userName = null;
+        String userName;
         Log.d("Applink", appLinkAction);
         Log.d("Applink", appLinkData.toString());
         if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
