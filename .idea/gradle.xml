@@ -9,6 +9,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/feature-commitlist" />
+            <option value="$PROJECT_DIR$/feature-repolist" />
+            <option value="$PROJECT_DIR$/instantapp" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

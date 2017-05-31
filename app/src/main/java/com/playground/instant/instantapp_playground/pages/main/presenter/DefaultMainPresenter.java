@@ -1,6 +1,6 @@
 package com.playground.instant.instantapp_playground.pages.main.presenter;
 
-import com.playground.instant.instantapp_playground.common.View;
+import com.playground.instant.base_module.common.View;
 import com.playground.instant.instantapp_playground.pages.main.view.MainView;
 
 /**

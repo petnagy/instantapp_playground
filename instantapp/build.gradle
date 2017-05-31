@@ -1,0 +1,8 @@
+apply plugin: 'com.android.instantapp'
+
+dependencies {
+    implementation project(':base')
+    // if there additional features, they go here
+    implementation project(':feature-repolist')
+    implementation project(':feature-commitlist')
+}

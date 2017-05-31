@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".ProjectApplication">
+        android:name="com.playground.instant.base_module.ProjectApplication">
         <meta-data
             android:name="asset_statements"
             android:resource="@string/asset_statements" />
@@ -27,33 +27,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".pages.repos.ReposActivity">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="https"
-                    android:host="applink-example.herokuapp.com"
-                    android:pathPrefix="/githubuser" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".pages.details.RepoDetailsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="https"
-                    android:host="applink-example.herokuapp.com"
-                    android:pathPattern="/githubproject" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

@@ -6,15 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.playground.instant.instantapp_playground.ProjectApplication;
+import com.playground.instant.base_module.ProjectApplication;
 import com.playground.instant.instantapp_playground.R;
-import com.playground.instant.instantapp_playground.injection.components.ActivityComponent;
-import com.playground.instant.instantapp_playground.injection.components.DaggerActivityComponent;
-import com.playground.instant.instantapp_playground.injection.modules.ActivityModule;
+import com.playground.instant.instantapp_playground.pages.main.injection.components.ActivityComponent;
+import com.playground.instant.instantapp_playground.pages.main.injection.components.DaggerActivityComponent;
+import com.playground.instant.instantapp_playground.pages.main.injection.modules.MainActivityModule;
 import com.playground.instant.instantapp_playground.pages.main.presenter.MainPresenter;
 import com.playground.instant.instantapp_playground.pages.main.view.MainView;
 import com.playground.instant.instantapp_playground.pages.main.view.ShowNextActivityCallback;
-import com.playground.instant.instantapp_playground.pages.repos.ReposActivity;
+import com.playground.instant.repolist_feature.pages.repos.ReposActivity;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements ShowNextActivityC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityComponent activityComponent = DaggerActivityComponent.builder()
-                .activityModule(new ActivityModule(this))
+                .mainActivityModule(new MainActivityModule(this))
                 .applicationComponent(ProjectApplication.get(this).getComponent())
                 .build();
         activityComponent.inject(this);
