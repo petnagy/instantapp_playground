@@ -4,17 +4,21 @@
 
     <application>
         <activity android:name=".pages.repos.ReposActivity">
-            <intent-filter android:autoVerify="true">
+            <intent-filter
+                android:autoVerify="true"
+                android:order="1">
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="https"
-                    android:host="applink-example.herokuapp.com"
-                    android:pathPrefix="/githubuser" />
+                <data android:host="applink-example.herokuapp.com" />
+                <data android:pathPrefix="/githubuser" />
+                <data android:scheme="https" />
+                <data android:scheme="http" />
             </intent-filter>
+            <meta-data
+                android:name="default-url"
+                android:value="https://applink-example.herokuapp.com/githubuser" />
         </activity>
     </application>
 

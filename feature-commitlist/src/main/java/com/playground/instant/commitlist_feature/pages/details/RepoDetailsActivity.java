@@ -1,6 +1,5 @@
 package com.playground.instant.commitlist_feature.pages.details;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +33,7 @@ import retrofit2.Response;
 
 public class RepoDetailsActivity extends AppCompatActivity {
 
-    private static final String GITHUB_REPO = "GitHubRepo";
+    //private static final String GITHUB_REPO = "GitHubRepo";
 
     @Inject
     RepoDetailsView view;
@@ -65,25 +64,36 @@ public class RepoDetailsActivity extends AppCompatActivity {
         handleNetworkCall(repo);
     }
 
-
     private GitHubRepo handleIntent(Intent intent) {
-        String appLinkAction = intent.getAction();
+        String action = intent.getAction();
         Uri appLinkData = intent.getData();
         GitHubRepo repo;
-        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
-            Log.d("Applink", appLinkAction);
-            Log.d("Applink", appLinkData.toString());
-            repo = new GitHubRepo();
-            repo.setName(appLinkData.getQueryParameter("repo"));
-            GitHubOwner owner = new GitHubOwner();
-            owner.setLogin(appLinkData.getQueryParameter("user"));
-            repo.setOwner(owner);
+        if (action == null && appLinkData != null) {
+            Log.d("RepoDetailsActivity", "InstantApp");
+            Log.d("RepoDetailsActivity", appLinkData.toString());
+            repo = createGitHubRepo(appLinkData);
+        } else if (Intent.ACTION_VIEW.equals(action) && appLinkData != null) {
+            Log.d("RepoDetailsActivity", "AppLink");
+            Log.d("RepoDetailsActivity", action);
+            Log.d("RepoDetailsActivity", appLinkData.toString());
+            repo = createGitHubRepo(appLinkData);
         } else {
-            repo = getIntent().getParcelableExtra(GITHUB_REPO);
-            if (repo == null) {
-                //TODO error message
-            }
+            Log.d("RepoDetailsActivity", "It is not possible");
+            throw new IllegalArgumentException("It is not possible!");
         }
+        return repo;
+    }
+
+    private GitHubRepo createGitHubRepo(Uri appLinkData) {
+        GitHubRepo repo = new GitHubRepo();
+        repo.setName(appLinkData.getQueryParameter("repo"));
+        GitHubOwner owner = new GitHubOwner();
+        owner.setLogin(appLinkData.getQueryParameter("user"));
+        String language = appLinkData.getQueryParameter("language");
+        if (language != null && !language.isEmpty()) {
+            repo.setLanguage(language);
+        }
+        repo.setOwner(owner);
         return repo;
     }
 
@@ -106,9 +116,9 @@ public class RepoDetailsActivity extends AppCompatActivity {
         });
     }
 
-    public static Intent launchDetailsActivity(Context context, GitHubRepo repo) {
-        Intent intent = new Intent(context, RepoDetailsActivity.class);
-        intent.putExtra(GITHUB_REPO, repo);
-        return intent;
-    }
+//    public static Intent launchDetailsActivity(Context context, GitHubRepo repo) {
+//        Intent intent = new Intent(context, RepoDetailsActivity.class);
+//        intent.putExtra(GITHUB_REPO, repo);
+//        return intent;
+//    }
 }

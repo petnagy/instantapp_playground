@@ -58,6 +58,8 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
                 .build();
         activityComponent.inject(this);
 
+        Log.d("ReposActivity", "onCreate");
+
         Intent intent = getIntent();
         String userName = handleIntent(intent);
 
@@ -72,13 +74,19 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
     }
 
     private String handleIntent(Intent intent) {
-        String appLinkAction = intent.getAction();
+        Log.d("ReposActivity", intent.toString());
+        String action = intent.getAction();
         Uri appLinkData = intent.getData();
         String userName;
-        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
+        if (appLinkData != null && action == null) {
+            Log.d("ReposActivity", "InstantApp");
             userName = appLinkData.getQueryParameter("user");
-            Log.d("Applink", appLinkAction);
-            Log.d("Applink", appLinkData.toString());
+            Log.d("ReposActivity", appLinkData.toString());
+        } else if (Intent.ACTION_VIEW.equals(action) && appLinkData != null) {
+            Log.d("ReposActivity", "AppLink");
+            userName = appLinkData.getQueryParameter("user");
+            Log.d("ReposActivity", action);
+            Log.d("ReposActivity", appLinkData.toString());
         } else {
             userName = getUserName(intent);
         }
@@ -87,14 +95,14 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
 
     @Override
     public void onCardClick(GitHubRepo repo) {
-        //TODO other navigation
         //startActivity(RepoDetailsActivity.launchDetailsActivity(this, repo));
-        invokeDeepLink(this, String.format(Locale.US, "https://applink-example.herokuapp.com/githubproject?user=%s&repo=%s", repo.getOwner().getLogin(), repo.getName()));
+        invokeDeepLink(this, String.format(Locale.US, "https://applink-example.herokuapp.com/githubproject?user=%s&repo=%s&language=%s", repo.getOwner().getLogin(), repo.getName(), repo.getLanguage()));
     }
 
     private void invokeDeepLink(Context context, String deepLink) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(deepLink));
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setPackage(context.getPackageName());
         context.startActivity(intent);
     }
 

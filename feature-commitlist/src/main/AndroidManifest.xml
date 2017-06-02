@@ -4,16 +4,17 @@
 
     <application>
         <activity android:name="com.playground.instant.commitlist_feature.pages.details.RepoDetailsActivity">
-            <intent-filter>
+            <intent-filter
+                android:autoVerify="true"
+                android:order="2">
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="https"
-                    android:host="applink-example.herokuapp.com"
-                    android:pathPattern="/githubproject" />
+                <data android:host="applink-example.herokuapp.com" />
+                <data android:pathPattern="/githubproject" />
+                <data android:scheme="https" />
+                <data android:scheme="http" />
             </intent-filter>
         </activity>
     </application>
