@@ -11,7 +11,6 @@ import android.util.Log;
 import com.playground.instant.base_module.ProjectApplication;
 import com.playground.instant.base_module.data.GitHubRepo;
 import com.playground.instant.repolist_feature.pages.repos.injection.components.ActivityComponent;
-import com.playground.instant.base_module.injection.modules.BaseActivityModule;
 import com.playground.instant.base_module.network.GitHubEndpoint;
 import com.playground.instant.repolist_feature.R;
 import com.playground.instant.repolist_feature.pages.repos.injection.components.DaggerActivityComponent;
