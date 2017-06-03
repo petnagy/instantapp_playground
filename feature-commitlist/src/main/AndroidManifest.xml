@@ -3,7 +3,8 @@
     package="com.playground.instant.commitlist_feature">
 
     <application>
-        <activity android:name="com.playground.instant.commitlist_feature.pages.details.RepoDetailsActivity">
+        <activity android:name="com.playground.instant.commitlist_feature.pages.details.RepoDetailsActivity"
+            android:parentActivityName="com.playground.instant.repolist_feature.pages.repos.ReposActivity">
             <intent-filter
                 android:autoVerify="true"
                 android:order="2">
