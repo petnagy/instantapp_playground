@@ -12,7 +12,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:host="applink-example.herokuapp.com" />
-                <data android:pathPrefix="/githubuser" />
+                <data android:pathPrefix="/githubuser*" />
                 <data android:scheme="https" />
                 <data android:scheme="http" />
             </intent-filter>

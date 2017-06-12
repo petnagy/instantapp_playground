@@ -13,10 +13,13 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:host="applink-example.herokuapp.com" />
-                <data android:pathPattern="/githubproject" />
+                <data android:pathPattern="/githubproject*" />
                 <data android:scheme="https" />
                 <data android:scheme="http" />
             </intent-filter>
+            <meta-data
+                android:name="default-url"
+                android:value="https://applink-example.herokuapp.com/githubproject" />
         </activity>
     </application>
 
