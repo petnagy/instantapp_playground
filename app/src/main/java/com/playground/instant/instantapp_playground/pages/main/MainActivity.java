@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.playground.instant.R;
 import com.playground.instant.base_module.ProjectApplication;
-import com.playground.instant.instantapp_playground.R;
 import com.playground.instant.instantapp_playground.pages.main.injection.components.ActivityComponent;
 import com.playground.instant.instantapp_playground.pages.main.injection.components.DaggerActivityComponent;
 import com.playground.instant.instantapp_playground.pages.main.injection.modules.MainActivityModule;

@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.playground.instant.instantapp_playground.R;
+import com.playground.instant.R;
+
 
 /**
  * Created by petnagy on 2017. 05. 24..
