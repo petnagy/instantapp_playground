@@ -23,18 +23,6 @@ public class CommitListActivityModule extends BaseActivityModule {
         super(activity);
     }
 
-    //    @Provides
-//    @PerActivity
-//    MainView provideMainView() {
-//        return new DefaultMainView();
-//    }
-//
-//    @Provides
-//    @PerActivity
-//    MainPresenter provideMainPresenter() {
-//        return new DefaultMainPresenter();
-//    }
-
     @Provides
     @PerActivity
     RepoDetailsView provideRepoDetailsView(CommitAdapter adapter) {
