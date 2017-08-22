@@ -10,6 +10,7 @@ import com.playground.instant.base_module.network.GitHubEndpoint;
 
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
 
 /**
@@ -19,13 +20,14 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
+    @Component.Builder
+    interface Builder {
+        ApplicationComponent build();
+        @BindsInstance Builder application(Application application);
+    }
+
     @ApplicationContext
     Context getContext();
 
-    Application getApplication();
-
     GitHubEndpoint getGitHubEndpoint();
-
-    void inject(ProjectApplication application);
-
 }

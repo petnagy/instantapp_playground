@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.playground.instant.base_module.injection.components.ApplicationComponent;
 import com.playground.instant.base_module.injection.components.DaggerApplicationComponent;
-import com.playground.instant.base_module.injection.modules.ApplicationModule;
 
 /**
  * Created by petnagy on 2017. 05. 24..
@@ -24,9 +23,8 @@ public class ProjectApplication extends Application {
         super.onCreate();
 
         appComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
+                .application(this)
                 .build();
-        appComponent.inject(this);
     }
 
     public ApplicationComponent getComponent() {
