@@ -110,16 +110,20 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
         call.enqueue(new Callback<List<GitHubRepo>>() {
             @Override
             public void onResponse(Call<List<GitHubRepo>> call, Response<List<GitHubRepo>> response) {
+                Log.d("ReposActivity", "Search is HTTP200");
                 if (response.isSuccessful()) {
                     presenter.showData(response.body());
                 } else {
                     //TODO error message
+                    Log.d("ReposActivity", "There was an error in Search");
                 }
             }
 
             @Override
             public void onFailure(Call<List<GitHubRepo>> call, Throwable t) {
                 //TODO Error message
+                Log.e("ReposActivity", "NetworkError");
+                Log.e("ReposActivity", t.getMessage());
             }
         });
     }
