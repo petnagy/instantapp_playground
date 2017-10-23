@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.playground.instant.base_module.ProjectApplication;
 import com.playground.instant.base_module.data.GitHubRepo;
+import com.playground.instant.base_module.dialog.ErrorDialog;
 import com.playground.instant.repolist_feature.pages.repos.injection.components.ActivityComponent;
 import com.playground.instant.base_module.network.GitHubEndpoint;
 import com.playground.instant.repolist_feature.R;
@@ -35,7 +37,9 @@ import retrofit2.Response;
 
 public class ReposActivity extends AppCompatActivity implements RepoCardClickCallback {
 
-    private static final String USER_NAME = "userName";
+    private static final String USER_NAME_EXTRA = "userName";
+
+    private static final String TAG = ReposActivity.class.getSimpleName();
 
     @Inject
     ReposView view;
@@ -57,7 +61,7 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
                 .build();
         activityComponent.inject(this);
 
-        Log.d("ReposActivity", "onCreate");
+        Log.d(TAG, "onCreate");
 
         Intent intent = getIntent();
         String userName = handleIntent(intent);
@@ -66,7 +70,7 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
         presenter.showView(view);
 
         if (userName == null) {
-            //TODO Error message
+            ErrorDialog.newInstance("UserName Parameter was null!!!");
         } else {
             handleNetworkCall(userName);
         }
@@ -78,14 +82,14 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
         Uri appLinkData = intent.getData();
         String userName;
         if (appLinkData != null && action == null) {
-            Log.d("ReposActivity", "InstantApp");
+            Log.d(TAG, "InstantApp");
             userName = appLinkData.getQueryParameter("user");
-            Log.d("ReposActivity", appLinkData.toString());
+            Log.d(TAG, appLinkData.toString());
         } else if (Intent.ACTION_VIEW.equals(action) && appLinkData != null) {
-            Log.d("ReposActivity", "AppLink");
+            Log.d(TAG, "AppLink");
             userName = appLinkData.getQueryParameter("user");
-            Log.d("ReposActivity", action);
-            Log.d("ReposActivity", appLinkData.toString());
+            Log.d(TAG, action);
+            Log.d(TAG, appLinkData.toString());
         } else {
             userName = getUserName(intent);
         }
@@ -95,7 +99,7 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
     @Override
     public void onCardClick(GitHubRepo repo) {
         //startActivity(RepoDetailsActivity.launchDetailsActivity(this, repo));
-        invokeDeepLink(this, String.format(Locale.US, "https://applink-example.herokuapp.com/githubproject?user=%s&repo=%s&language=%s", repo.getOwner().getLogin(), repo.getName(), repo.getLanguage()));
+        invokeDeepLink(this, getString(R.string.next_page, repo.getOwner().getLogin(), repo.getName(), repo.getLanguage()));
     }
 
     private void invokeDeepLink(Context context, String deepLink) {
@@ -109,32 +113,32 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
         Call<List<GitHubRepo>> call = endpoint.getRepos(userName);
         call.enqueue(new Callback<List<GitHubRepo>>() {
             @Override
-            public void onResponse(Call<List<GitHubRepo>> call, Response<List<GitHubRepo>> response) {
-                Log.d("ReposActivity", "Search is HTTP200");
+            public void onResponse(@NonNull Call<List<GitHubRepo>> call, @NonNull Response<List<GitHubRepo>> response) {
+                Log.d(TAG, "Search is HTTP200");
                 if (response.isSuccessful()) {
                     presenter.showData(response.body());
                 } else {
-                    //TODO error message
-                    Log.d("ReposActivity", "There was an error in Search");
+                    ErrorDialog.newInstance("Response was not successful!");
+                    Log.d(TAG, "There was an error in Search");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<GitHubRepo>> call, Throwable t) {
-                //TODO Error message
-                Log.e("ReposActivity", "NetworkError");
-                Log.e("ReposActivity", t.getMessage());
+            public void onFailure(@NonNull Call<List<GitHubRepo>> call, @NonNull Throwable throwable) {
+                ErrorDialog.newInstance("NetworkError " + throwable.getMessage());
+                Log.e(TAG, "NetworkError");
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
     private String getUserName(Intent intent) {
-        return intent.getStringExtra(USER_NAME);
+        return intent.getStringExtra(USER_NAME_EXTRA);
     }
 
     public static Intent launchIntent(Context context, String userName) {
         Intent intent = new Intent(context, ReposActivity.class);
-        intent.putExtra(USER_NAME, userName);
+        intent.putExtra(USER_NAME_EXTRA, userName);
         return intent;
     }
 

@@ -1,6 +1,7 @@
 package com.playground.instant.instantapp_playground.pages.main.view;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,28 +24,26 @@ public class DefaultMainView implements MainView, NavigationView.OnNavigationIte
 
     private EditText userName;
 
-    private Button btnShowNextActivity;
-
     private ShowNextActivityCallback callback;
 
     private DrawerLayout drawer;
 
     @Override
     public void onCreate(Activity activity) {
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
         ((AppCompatActivity) activity).setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
+        drawer = activity.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 activity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
+        NavigationView navigationView = activity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        userName = (EditText) activity.findViewById(R.id.user_name);
-        btnShowNextActivity = (Button) activity.findViewById(R.id.btn_next_screen);
+        userName = activity.findViewById(R.id.user_name);
+        Button btnShowNextActivity = activity.findViewById(R.id.btn_next_screen);
         callback = (ShowNextActivityCallback) activity;
         btnShowNextActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +55,7 @@ public class DefaultMainView implements MainView, NavigationView.OnNavigationIte
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

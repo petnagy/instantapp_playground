@@ -3,11 +3,13 @@ package com.playground.instant.commitlist_feature.pages.details;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.playground.instant.base_module.ProjectApplication;
+import com.playground.instant.base_module.dialog.ErrorDialog;
 import com.playground.instant.commitlist_feature.R;
 import com.playground.instant.commitlist_feature.pages.details.injection.components.ActivityComponent;
 import com.playground.instant.base_module.data.GitCommit;
@@ -34,6 +36,8 @@ import retrofit2.Response;
 public class RepoDetailsActivity extends AppCompatActivity {
 
     //private static final String GITHUB_REPO = "GitHubRepo";
+
+    private static final String TAG = RepoDetailsActivity.class.getSimpleName();
 
     @Inject
     RepoDetailsView view;
@@ -69,16 +73,16 @@ public class RepoDetailsActivity extends AppCompatActivity {
         Uri appLinkData = intent.getData();
         GitHubRepo repo;
         if (action == null && appLinkData != null) {
-            Log.d("RepoDetailsActivity", "InstantApp");
-            Log.d("RepoDetailsActivity", appLinkData.toString());
+            Log.d(TAG, "InstantApp");
+            Log.d(TAG, appLinkData.toString());
             repo = createGitHubRepo(appLinkData);
         } else if (Intent.ACTION_VIEW.equals(action) && appLinkData != null) {
-            Log.d("RepoDetailsActivity", "AppLink");
-            Log.d("RepoDetailsActivity", action);
-            Log.d("RepoDetailsActivity", appLinkData.toString());
+            Log.d(TAG, "AppLink");
+            Log.d(TAG, action);
+            Log.d(TAG, appLinkData.toString());
             repo = createGitHubRepo(appLinkData);
         } else {
-            Log.d("RepoDetailsActivity", "It is not possible");
+            Log.d(TAG, "It is not possible");
             throw new IllegalArgumentException("It is not possible!");
         }
         return repo;
@@ -101,17 +105,17 @@ public class RepoDetailsActivity extends AppCompatActivity {
         Call<List<GitCommit>> call = endpoint.getCommits(repo.getOwner().getLogin(), repo.getName());
         call.enqueue(new Callback<List<GitCommit>>() {
             @Override
-            public void onResponse(Call<List<GitCommit>> call, Response<List<GitCommit>> response) {
+            public void onResponse(@NonNull Call<List<GitCommit>> call, @NonNull Response<List<GitCommit>> response) {
                 if (response.isSuccessful()) {
                     presenter.showCommits(response.body());
                 } else {
-                    //TODO error message
+                    ErrorDialog.newInstance("Response was not Successful!");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<GitCommit>> call, Throwable t) {
-                //TODO Error message
+            public void onFailure(@NonNull Call<List<GitCommit>> call, @NonNull Throwable throwable) {
+                ErrorDialog.newInstance("NetworkError " + throwable.getMessage());
             }
         });
     }

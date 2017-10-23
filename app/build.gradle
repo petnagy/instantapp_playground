@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.playground.instant.instantapp_playground"
         minSdkVersion 17
@@ -33,7 +33,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"
 
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:26.0.1'
+    compile 'com.android.support:design:26.1.0'
 
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
     compile 'com.google.dagger:dagger-android-support:2.11'

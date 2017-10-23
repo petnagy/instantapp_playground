@@ -17,6 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApplicationModule {
 
+    private static final String GITHUB_BASE_URL = "https://api.github.com/";
+
     @Provides
     @ApplicationContext
     Context provideContext(Application application) {
@@ -26,7 +28,7 @@ public class ApplicationModule {
     @Provides
     Retrofit provideRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(GITHUB_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
