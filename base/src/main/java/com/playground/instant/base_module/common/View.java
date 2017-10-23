@@ -9,4 +9,6 @@ import android.app.Activity;
 public interface View {
 
     void onCreate(Activity activity);
+
+    android.view.View getRootView();
 }

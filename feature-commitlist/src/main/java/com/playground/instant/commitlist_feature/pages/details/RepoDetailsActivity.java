@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.playground.instant.base_module.ProjectApplication;
-import com.playground.instant.base_module.dialog.ErrorDialog;
-import com.playground.instant.commitlist_feature.R;
-import com.playground.instant.commitlist_feature.pages.details.injection.components.ActivityComponent;
 import com.playground.instant.base_module.data.GitCommit;
 import com.playground.instant.base_module.data.GitHubOwner;
 import com.playground.instant.base_module.data.GitHubRepo;
+import com.playground.instant.base_module.dialog.ErrorDialog;
 import com.playground.instant.base_module.network.GitHubEndpoint;
+import com.playground.instant.base_module.util.InstantAppUtil;
+import com.playground.instant.commitlist_feature.R;
+import com.playground.instant.commitlist_feature.pages.details.injection.components.ActivityComponent;
 import com.playground.instant.commitlist_feature.pages.details.injection.components.DaggerActivityComponent;
 import com.playground.instant.commitlist_feature.pages.details.injection.modules.CommitListActivityModule;
 import com.playground.instant.commitlist_feature.pages.details.presenter.RepoDetailsPresenter;
@@ -66,6 +67,13 @@ public class RepoDetailsActivity extends AppCompatActivity {
         presenter.showRepoData(repo);
 
         handleNetworkCall(repo);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        presenter.showSnackBar(InstantAppUtil.getAppType(this));
     }
 
     private GitHubRepo handleIntent(Intent intent) {

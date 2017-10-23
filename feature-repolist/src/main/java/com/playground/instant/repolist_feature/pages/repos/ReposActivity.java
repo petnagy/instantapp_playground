@@ -12,9 +12,10 @@ import android.util.Log;
 import com.playground.instant.base_module.ProjectApplication;
 import com.playground.instant.base_module.data.GitHubRepo;
 import com.playground.instant.base_module.dialog.ErrorDialog;
-import com.playground.instant.repolist_feature.pages.repos.injection.components.ActivityComponent;
 import com.playground.instant.base_module.network.GitHubEndpoint;
+import com.playground.instant.base_module.util.InstantAppUtil;
 import com.playground.instant.repolist_feature.R;
+import com.playground.instant.repolist_feature.pages.repos.injection.components.ActivityComponent;
 import com.playground.instant.repolist_feature.pages.repos.injection.components.DaggerActivityComponent;
 import com.playground.instant.repolist_feature.pages.repos.injection.modules.RepoListActivityModule;
 import com.playground.instant.repolist_feature.pages.repos.presenter.ReposPresenter;
@@ -22,7 +23,6 @@ import com.playground.instant.repolist_feature.pages.repos.view.RepoCardClickCal
 import com.playground.instant.repolist_feature.pages.repos.view.ReposView;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -74,6 +74,13 @@ public class ReposActivity extends AppCompatActivity implements RepoCardClickCal
         } else {
             handleNetworkCall(userName);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        presenter.showSnackBar(InstantAppUtil.getAppType(this));
     }
 
     private String handleIntent(Intent intent) {

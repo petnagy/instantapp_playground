@@ -1,6 +1,7 @@
 package com.playground.instant.repolist_feature.pages.repos.view;
 
 import android.app.Activity;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,17 +23,25 @@ public class DefaultReposView implements ReposView {
 
     private RepoAdapter adapter;
 
+    private ConstraintLayout rootView;
+
     public DefaultReposView(RepoAdapter adapter) {
         this.adapter = adapter;
     }
 
     @Override
     public void onCreate(Activity activity) {
-        progress = (ProgressBar) activity.findViewById(R.id.progress);
-        RecyclerView reposList = (RecyclerView) activity.findViewById(R.id.repo_list);
+        progress = activity.findViewById(R.id.progress);
+        RecyclerView reposList = activity.findViewById(R.id.repo_list);
+        rootView = activity.findViewById(R.id.details_root_view);
         reposList.addItemDecoration(new SpaceItemDecor(16));
         reposList.setAdapter(adapter);
         reposList.setLayoutManager(new GridLayoutManager(activity, 1));
+    }
+
+    @Override
+    public View getRootView() {
+        return rootView;
     }
 
     @Override

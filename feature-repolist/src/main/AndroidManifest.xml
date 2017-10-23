@@ -3,7 +3,8 @@
     package="com.playground.instant.repolist_feature">
 
     <application>
-        <activity android:name="com.playground.instant.repolist_feature.pages.repos.ReposActivity">
+        <activity android:name="com.playground.instant.repolist_feature.pages.repos.ReposActivity"
+            android:label="Repo list">
             <intent-filter
                 android:autoVerify="true"
                 android:order="1">

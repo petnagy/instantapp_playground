@@ -1,5 +1,7 @@
 package com.playground.instant.commitlist_feature.pages.details.presenter;
 
+import android.support.design.widget.Snackbar;
+
 import com.playground.instant.base_module.common.View;
 import com.playground.instant.base_module.data.GitCommit;
 import com.playground.instant.base_module.data.GitHubRepo;
@@ -18,6 +20,11 @@ public class DefaultRepoDetailsPresenter implements RepoDetailsPresenter {
     @Override
     public void showView(View view) {
         this.view = (RepoDetailsView) view;
+    }
+
+    @Override
+    public void showSnackBar(String appType) {
+        Snackbar.make(view.getRootView(), appType, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

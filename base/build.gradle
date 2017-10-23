@@ -51,4 +51,7 @@ dependencies {
 
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
     compile 'com.google.dagger:dagger-android-support:2.11'
+
+    compile 'com.google.android.instantapps:instantapps:1.1.0'
+    compile 'com.android.support:design:26.1.0'
 }

@@ -2,6 +2,7 @@
     <string name="app_name">instantapp_playground</string>
     <string name="error_dialog_title">ERROR!</string>
     <string name="error_ok">OK</string>
-
+    <string name="instant_app_toast_message">It is an Instant App</string>
+    <string name="installed_app_toast_message">It is an installed App</string>
     <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://applink-example.herokuapp.com\",\n  }\n}]</string>
 </resources>

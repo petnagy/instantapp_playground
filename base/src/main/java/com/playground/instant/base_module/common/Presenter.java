@@ -7,4 +7,6 @@ package com.playground.instant.base_module.common;
 public interface Presenter {
 
     void showView(View view);
+
+    void showSnackBar(String appType);
 }

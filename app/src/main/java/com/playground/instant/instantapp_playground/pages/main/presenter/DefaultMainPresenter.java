@@ -17,6 +17,11 @@ public class DefaultMainPresenter implements MainPresenter {
     }
 
     @Override
+    public void showSnackBar(String appType) {
+        //Leave it blank
+    }
+
+    @Override
     public boolean onBackPressed() {
         return view.handleBackPressed();
     }
