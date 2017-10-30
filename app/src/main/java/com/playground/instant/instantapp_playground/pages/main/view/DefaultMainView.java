@@ -3,6 +3,7 @@ package com.playground.instant.instantapp_playground.pages.main.view;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,7 +30,7 @@ public class DefaultMainView implements MainView, NavigationView.OnNavigationIte
 
     private DrawerLayout drawer;
 
-    private ConstraintLayout mainRootView;
+    private CoordinatorLayout mainRootView;
 
     @Override
     public void onCreate(Activity activity) {
