@@ -30,10 +30,10 @@ dependencies {
     })
     api project(':base')
 
-    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.13"
 
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-    compile 'com.google.dagger:dagger-android-support:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.13'
+    compile 'com.google.dagger:dagger-android-support:2.13'
 
     testCompile 'junit:junit:4.12'
 }
