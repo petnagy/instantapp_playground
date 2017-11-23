@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '26.0.3'
     defaultConfig {
         applicationId "com.playground.instant.instantapp_playground"
         minSdkVersion 17
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,12 +30,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.13"
 
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:design:27.0.1'
 
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-    compile 'com.google.dagger:dagger-android-support:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.13'
+    compile 'com.google.dagger:dagger-android-support:2.13'
 
 }
